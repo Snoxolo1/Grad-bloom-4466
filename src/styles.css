@@ -31,6 +31,7 @@
   --color-navy: var(--navy);
   --color-navy-foreground: var(--navy-foreground);
   --color-success: var(--success);
+  --color-brand: var(--brand);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -46,7 +47,8 @@
   --card-foreground: oklch(0.22 0.06 260);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.06 260);
-  --navy: oklch(0.24 0.08 262);
+  --navy: #12263b;
+  --brand: #078f90;
   --navy-foreground: oklch(0.97 0.01 230);
   --primary: oklch(0.24 0.08 262);
   --primary-foreground: oklch(0.98 0.01 230);
@@ -64,9 +66,7 @@
   --border: oklch(0.9 0.015 240);
   --input: oklch(0.88 0.02 240);
   --ring: oklch(0.7 0.14 190);
-  --gradient-hero: radial-gradient(circle at 85% 10%, oklch(0.78 0.14 190 / 0.35), transparent 45%),
-    radial-gradient(circle at 10% 90%, oklch(0.87 0.16 88 / 0.25), transparent 40%),
-    linear-gradient(160deg, oklch(0.2 0.08 262), oklch(0.28 0.09 255));
+  --gradient-hero: var(--navy);
   --shadow-card: 0 1px 2px oklch(0.24 0.08 262 / 0.06), 0 12px 32px -16px oklch(0.24 0.08 262 / 0.25);
 }
 
@@ -77,7 +77,7 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0; }
 }
 
 @utility bg-hero { background: var(--gradient-hero); }
