@@ -27,13 +27,13 @@ function Employer() {
   const [shortlist, setShortlist] = useLocal<string[]>("loe-shortlist", []);
   const [reviews, setReviews] = useLocal<Record<string, Review>>("loe-reviews", {});
   const [feedback, setFeedback] = useLocal<Record<string, FeedbackRec>>("loe-feedback", {});
-  const [openId, setOpenId] = useState(candidates[0].id);
+  const [openId, setOpenId] = useState(candidates[0]!.id);
   const c = candidates.find((x) => x.id === openId)!;
   const idx = candidates.indexOf(c);
   const label = (i: number, name: string) => (blind ? `Candidate ${String.fromCharCode(65 + i)}` : name);
   const review = reviews[c.id] ?? {};
   const scored = criteria.filter((k) => review[k]?.score);
-  const overall = scored.length ? scored.reduce((a, k) => a + review[k].score, 0) / scored.length : 0;
+  const overall = scored.length ? scored.reduce((a, k) => a + (review[k]?.score ?? 0), 0) / scored.length : 0;
   const fb = feedback[c.id] ?? { improve: "", how: "", suggestion: "" };
   const [fbDraft, setFbDraft] = useState<FeedbackRec | null>(null);
   const fbv = fbDraft ?? fb;
