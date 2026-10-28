@@ -30,7 +30,7 @@ export type Project = {
 };
 
 export const sampleGraduate = {
-  name: "Thandeka Mokoena",
+  name: "Snoxolo Mokoena",
   qualification: "BCom Information Systems, University of Johannesburg (2025)",
   skills: ["Excel", "SQL", "Communication", "Python"],
 };
@@ -58,8 +58,8 @@ export type Candidate = {
 export const candidates: Candidate[] = [
   {
     id: "c1",
-    name: "Thandeka Mokoena",
-    initials: "TM",
+    name: "Snoxolo Mokoena",
+    initials: "SM",
     headline: "BCom Information Systems graduate",
     project: defaultProject,
     status: "Pending verification",
@@ -120,7 +120,10 @@ export function useLocal<T>(key: string, initial: T) {
   useEffect(() => {
     try {
       const raw = localStorage.getItem(key);
-      if (raw) setValue(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        setValue(key === "loe-cv" && typeof parsed === "string" ? parsed.replaceAll("Thandeka Mokoena", sampleGraduate.name) : parsed);
+      }
     } catch {}
     setReady(true);
   }, [key]);

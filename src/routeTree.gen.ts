@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmployerRouteImport } from './routes/employer'
 import { Route as GraduateRouteImport } from './routes/graduate'
+import { Route as EvidenceCandidateIdRouteImport } from './routes/evidence.$candidateId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const GraduateRoute = GraduateRouteImport.update({
   path: '/graduate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EvidenceCandidateIdRoute = EvidenceCandidateIdRouteImport.update({
+  id: '/evidence/$candidateId',
+  path: '/evidence/$candidateId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/employer': typeof EmployerRoute
   '/graduate': typeof GraduateRoute
+  '/evidence/$candidateId': typeof EvidenceCandidateIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/employer': typeof EmployerRoute
   '/graduate': typeof GraduateRoute
+  '/evidence/$candidateId': typeof EvidenceCandidateIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/employer': typeof EmployerRoute
   '/graduate': typeof GraduateRoute
+  '/evidence/$candidateId': typeof EvidenceCandidateIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/employer' | '/graduate'
+  fullPaths: '/' | '/employer' | '/graduate' | '/evidence/$candidateId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/employer' | '/graduate'
-  id: '__root__' | '/' | '/employer' | '/graduate'
+  to: '/' | '/employer' | '/graduate' | '/evidence/$candidateId'
+  id: '__root__' | '/' | '/employer' | '/graduate' | '/evidence/$candidateId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EmployerRoute: typeof EmployerRoute
   GraduateRoute: typeof GraduateRoute
+  EvidenceCandidateIdRoute: typeof EvidenceCandidateIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GraduateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/evidence/$candidateId': {
+      id: '/evidence/$candidateId'
+      path: '/evidence/$candidateId'
+      fullPath: '/evidence/$candidateId'
+      preLoaderRoute: typeof EvidenceCandidateIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EmployerRoute: EmployerRoute,
   GraduateRoute: GraduateRoute,
+  EvidenceCandidateIdRoute: EvidenceCandidateIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

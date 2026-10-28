@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AppShell, SectionTitle, StatusChip } from "@/components/AppShell";
+import { EvidenceLink } from "@/components/EvidenceLink";
 import {
   cvDraft, defaultProject, evidencePath, opportunity, sampleFeedback, sampleGraduate, useLocal, type Project,
 } from "@/lib/demo";
@@ -123,7 +124,7 @@ function CapabilityCard({ project, challenge }: { project: Project; challenge: s
           <p className="text-xs font-bold uppercase text-muted-foreground">Project</p>
           <p className="font-semibold">{project.title || "—"}</p>
           <p className="mt-1 text-sm">{project.contribution}</p>
-          {project.link && <a href={project.link} target="_blank" rel="noreferrer" className="mt-2 inline-block text-sm font-semibold underline">View evidence ↗</a>}
+          {project.link && <EvidenceLink href={project.link} />}
         </div>
         <div>
           <p className="text-xs font-bold uppercase text-muted-foreground">Skills with evidence</p>

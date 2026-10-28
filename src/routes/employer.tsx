@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AppShell, SectionTitle, StatusChip } from "@/components/AppShell";
+import { EvidenceLink } from "@/components/EvidenceLink";
 import { candidates, opportunity, useLocal } from "@/lib/demo";
 
 export const Route = createFileRoute("/employer")({
@@ -27,16 +28,18 @@ function Employer() {
   const [shortlist, setShortlist] = useLocal<string[]>("loe-shortlist", []);
   const [reviews, setReviews] = useLocal<Record<string, Review>>("loe-reviews", {});
   const [feedback, setFeedback] = useLocal<Record<string, FeedbackRec>>("loe-feedback", {});
-  const [openId, setOpenId] = useState(candidates[0]!.id);
-  const c = candidates.find((x) => x.id === openId)!;
-  const idx = candidates.indexOf(c);
+  const [openId, setOpenId] = useState(candidates[0]?.id ?? "");
+  const c = candidates.find((x) => x.id === openId) ?? candidates[0];
+  const idx = c ? candidates.indexOf(c) : 0;
   const label = (i: number, name: string) => (blind ? `Candidate ${String.fromCharCode(65 + i)}` : name);
-  const review = reviews[c.id] ?? {};
+  const review = reviews[c?.id ?? ""] ?? {};
   const scored = criteria.filter((k) => review[k]?.score);
   const overall = scored.length ? scored.reduce((a, k) => a + (review[k]?.score ?? 0), 0) / scored.length : 0;
-  const fb = feedback[c.id] ?? { improve: "", how: "", suggestion: "" };
+  const fb = feedback[c?.id ?? ""] ?? { improve: "", how: "", suggestion: "" };
   const [fbDraft, setFbDraft] = useState<FeedbackRec | null>(null);
   const fbv = fbDraft ?? fb;
+
+  if (!c) return <AppShell><p>No sample candidates available.</p></AppShell>;
 
   const setScore = (k: string, patch: Partial<Score>) =>
     setReviews({ ...reviews, [c.id]: { ...review, [k]: { score: 0, notes: "", ...review[k], ...patch } } });
@@ -100,7 +103,7 @@ function Employer() {
                 <p className="text-sm">{c.project.description}</p>
                 <p className="mt-2 text-sm"><b>Contribution:</b> {c.project.contribution}</p>
                 <div className="mt-2 flex flex-wrap gap-1.5">{c.project.skills.map((s) => <span key={s} className="chip bg-accent/25">{s}</span>)}</div>
-                <a className="mt-2 inline-block text-sm font-semibold underline" href={c.project.link} target="_blank" rel="noreferrer">Open evidence link ↗</a>
+                <EvidenceLink href={c.project.link} label="Open evidence link" />
               </div>
               <div className="rounded-xl bg-muted p-4">
                 <b>Practical challenge response</b>
