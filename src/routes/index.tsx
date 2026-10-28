@@ -1,4 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { AppHeader } from "@/components/AppShell";
+import { Button } from "@/components/ui/button";
+import capabilityCard from "@/assets/capability-card.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,38 +20,29 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-hero text-navy-foreground">
-      <div className="mx-auto flex min-h-screen max-w-5xl flex-col justify-center px-5 py-16">
-        <span className="chip mb-6 w-fit bg-highlight text-highlight-foreground">Prototype · sample data</span>
-        <h1 className="text-5xl font-bold leading-[1.05] sm:text-7xl">
-          Launch of <span className="text-accent">Exploration</span>
-        </h1>
-        <p className="mt-5 max-w-2xl text-xl opacity-90 sm:text-2xl">
-          Show what you can do. Get noticed for it and step into your future.
-        </p>
-        <p className="mt-6 max-w-2xl opacity-75">
-          Graduates turn their projects and a short practical challenge into a <b>Capability Card</b>. The
-          <b> Evidence-to-Opportunity Path</b> shows what you've already proven, what's missing, and the fastest next step.
-          Employers review every candidate with the same fair rubric.
-        </p>
-        <div className="mt-10 flex flex-wrap gap-3">
-          <Link to="/graduate" className="btn btn-yellow px-6 py-3 text-base">Explore as a graduate →</Link>
-          <Link to="/employer" className="btn btn-accent px-6 py-3 text-base">Explore as an employer →</Link>
-        </div>
-        <div className="mt-14 grid gap-4 sm:grid-cols-3">
-          {[
-            ["1", "Add evidence", "A real project and your exact contribution."],
-            ["2", "Take the challenge", "A short task tied to the role."],
-            ["3", "Get reviewed fairly", "Same rubric for everyone, optional blind review."],
-          ].map(([n, t, d]) => (
-            <div key={n} className="rounded-2xl border border-navy-foreground/15 bg-navy-foreground/5 p-5">
-              <div className="font-display text-3xl font-bold text-highlight">{n}</div>
-              <div className="mt-2 font-semibold">{t}</div>
-              <div className="text-sm opacity-75">{d}</div>
+    <div className="min-h-screen">
+      <AppHeader />
+      <main>
+        <section className="bg-navy text-navy-foreground">
+          <div className="mx-auto grid max-w-[1440px] items-center gap-8 px-5 py-14 lg:grid-cols-[1.6fr_1fr] lg:px-6 lg:py-16">
+            <div>
+              <p className="mb-7 text-sm font-bold uppercase tracking-widest text-accent">Your potential has a place here</p>
+              <h1 className="text-4xl font-bold leading-[1.08] sm:text-6xl xl:text-7xl">Experience is more than a <span className="text-highlight">job title.</span></h1>
+              <p className="mt-6 text-lg text-navy-foreground/85 sm:text-xl">Show what you can do. Get noticed for it and step into your future.</p>
+              <p className="mt-6 max-w-3xl text-lg text-navy-foreground/85 sm:text-xl">Turn your projects and practical skills into evidence employers can see—and discover your next step towards opportunity.</p>
+              <div className="mt-9 flex flex-wrap gap-4">
+                <Button asChild size="lg" className="h-auto min-h-14 whitespace-normal bg-highlight px-6 py-4 text-base font-bold text-highlight-foreground hover:bg-highlight/90"><Link to="/graduate">Explore as a graduate <ArrowUpRight /></Link></Button>
+                <Button asChild size="lg" variant="outline" className="h-auto min-h-14 whitespace-normal border-navy-foreground/50 bg-transparent px-6 py-4 text-base font-bold text-navy-foreground hover:bg-navy-foreground/10 hover:text-navy-foreground"><Link to="/employer">Explore as an employer <ArrowRight /></Link></Button>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
+            <img src={capabilityCard} alt="Capability Card: proof of potential, with skills, projects and practical thinking in one place" width={1024} height={768} className="mx-auto w-full max-w-lg" />
+          </div>
+        </section>
+        <section className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-3 px-5 py-6 lg:px-6">
+          <h2 className="text-xl font-bold">Launch of Exploration</h2>
+          <p className="text-sm text-muted-foreground">Projects. Practical skills. Your next opportunity.</p>
+        </section>
+      </main>
     </div>
   );
 }
