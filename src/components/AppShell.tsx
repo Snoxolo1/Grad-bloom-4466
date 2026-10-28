@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export function AppHeader() {
   return (
@@ -15,6 +16,7 @@ export function AppHeader() {
           <Button asChild variant="ghost"><Link to="/" activeOptions={{ exact: true }} activeProps={{ className: "text-brand" }}><Home className="size-4" />Home</Link></Button>
           <Button asChild variant="ghost"><Link to="/graduate" activeProps={{ className: "text-brand" }}>Graduate view</Link></Button>
           <Button asChild variant="ghost"><Link to="/employer" activeProps={{ className: "text-brand" }}>Employer view</Link></Button>
+          <ThemeToggle />
           <span className="hidden border-l pl-5 text-xs uppercase tracking-widest text-muted-foreground xl:inline">Prototype · sample data</span>
         </nav>
       </div>
